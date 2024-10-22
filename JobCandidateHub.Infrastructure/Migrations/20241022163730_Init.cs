@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
@@ -21,8 +22,8 @@ namespace JobCandidateHub.Infrastructure.Migrations
                     LastName = table.Column<string>(type: "text", nullable: false),
                     PhoneNumber = table.Column<string>(type: "text", nullable: false),
                     Email = table.Column<string>(type: "text", nullable: false),
-                    FromTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
-                    ToTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    FromTime = table.Column<TimeOnly>(type: "time without time zone", nullable: false),
+                    ToTime = table.Column<TimeOnly>(type: "time without time zone", nullable: false),
                     LinkedInUrl = table.Column<string>(type: "text", nullable: false),
                     GithubUrl = table.Column<string>(type: "text", nullable: false),
                     Comment = table.Column<string>(type: "text", nullable: false),
@@ -44,8 +45,8 @@ namespace JobCandidateHub.Infrastructure.Migrations
                     LastName = table.Column<string>(type: "text", nullable: false),
                     PhoneNumber = table.Column<string>(type: "text", nullable: false),
                     Email = table.Column<string>(type: "text", nullable: false),
-                    FromTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
-                    ToTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    FromTime = table.Column<TimeOnly>(type: "time without time zone", nullable: false),
+                    ToTime = table.Column<TimeOnly>(type: "time without time zone", nullable: false),
                     LinkedInUrl = table.Column<string>(type: "text", nullable: false),
                     GithubUrl = table.Column<string>(type: "text", nullable: false),
                     Comment = table.Column<string>(type: "text", nullable: false),

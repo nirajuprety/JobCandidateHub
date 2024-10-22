@@ -83,7 +83,7 @@ namespace JobCandidateHub.Application.Manager.Implementation
                 };
             }
 
-            _logger.LogWarning("Candidate not found for email: " + email);
+            _logger.LogInformation("Candidate not found for email: " + email);
             return new CommonApiResponse
             {
                 Data = false,

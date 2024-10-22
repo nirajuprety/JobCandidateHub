@@ -2,9 +2,11 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using System.Diagnostics.CodeAnalysis;
 
 namespace JobCandidateHub.API.Services
 {
+    [ExcludeFromCodeCoverage]
     public class InputValidationFilter : IActionFilter, IFilterMetadata
     {
         public void OnActionExecuting(ActionExecutingContext context)

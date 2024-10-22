@@ -45,8 +45,8 @@ namespace JobCandidateHub.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<DateTime>("FromTime")
-                        .HasColumnType("timestamp without time zone");
+                    b.Property<TimeOnly>("FromTime")
+                        .HasColumnType("time without time zone");
 
                     b.Property<string>("GithubUrl")
                         .IsRequired()
@@ -64,8 +64,8 @@ namespace JobCandidateHub.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<DateTime>("ToTime")
-                        .HasColumnType("timestamp without time zone");
+                    b.Property<TimeOnly>("ToTime")
+                        .HasColumnType("time without time zone");
 
                     b.Property<DateTime>("UpdatedDate")
                         .HasColumnType("timestamp without time zone");
@@ -101,8 +101,8 @@ namespace JobCandidateHub.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<DateTime>("FromTime")
-                        .HasColumnType("timestamp without time zone");
+                    b.Property<TimeOnly>("FromTime")
+                        .HasColumnType("time without time zone");
 
                     b.Property<string>("GithubUrl")
                         .IsRequired()
@@ -120,8 +120,8 @@ namespace JobCandidateHub.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<DateTime>("ToTime")
-                        .HasColumnType("timestamp without time zone");
+                    b.Property<TimeOnly>("ToTime")
+                        .HasColumnType("time without time zone");
 
                     b.Property<DateTime>("UpdatedDate")
                         .HasColumnType("timestamp without time zone");

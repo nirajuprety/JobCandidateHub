@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace JobCandidateHub.Infrastructure.Migrations
 {
     [DbContext(typeof(JobCandidateHubDbContext))]
-    [Migration("20241022160258_Init")]
+    [Migration("20241022163730_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -48,8 +48,8 @@ namespace JobCandidateHub.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<DateTime>("FromTime")
-                        .HasColumnType("timestamp without time zone");
+                    b.Property<TimeOnly>("FromTime")
+                        .HasColumnType("time without time zone");
 
                     b.Property<string>("GithubUrl")
                         .IsRequired()
@@ -67,8 +67,8 @@ namespace JobCandidateHub.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<DateTime>("ToTime")
-                        .HasColumnType("timestamp without time zone");
+                    b.Property<TimeOnly>("ToTime")
+                        .HasColumnType("time without time zone");
 
                     b.Property<DateTime>("UpdatedDate")
                         .HasColumnType("timestamp without time zone");
@@ -104,8 +104,8 @@ namespace JobCandidateHub.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<DateTime>("FromTime")
-                        .HasColumnType("timestamp without time zone");
+                    b.Property<TimeOnly>("FromTime")
+                        .HasColumnType("time without time zone");
 
                     b.Property<string>("GithubUrl")
                         .IsRequired()
@@ -123,8 +123,8 @@ namespace JobCandidateHub.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<DateTime>("ToTime")
-                        .HasColumnType("timestamp without time zone");
+                    b.Property<TimeOnly>("ToTime")
+                        .HasColumnType("time without time zone");
 
                     b.Property<DateTime>("UpdatedDate")
                         .HasColumnType("timestamp without time zone");
