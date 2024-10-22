@@ -24,7 +24,7 @@ namespace JobCandidateHub.API.Controllers
         [ServiceFilter(typeof(InputValidationFilter))]
         public async Task<CommonApiResponse> AddUpdateJobCandidateDetails(JobCandidateRequest request)
         {
-            _logger.LogInformation("Add or update job candidate intiated for request:"+JsonConvert.SerializeObject(request));
+            _logger.LogInformation("Add or update job candidate intiated for request:" + JsonConvert.SerializeObject(request));
             var response = await _candidateManager.AddOrUpdateJobCandidateDetails(request);
             return response;
         }

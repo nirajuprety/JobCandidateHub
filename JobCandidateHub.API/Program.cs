@@ -1,6 +1,9 @@
+using AutoMapper;
 using JobCandidateHub.API.Services;
-using JobCandidateHub.Infrastructure;
 using JobCandidateHub.Application;
+using JobCandidateHub.Application.Mapper;
+using JobCandidateHub.Infrastructure;
+using JobCandidateHub.Infrastructure.Mapper;
 using JobCandidateHub.Infrastructure.Repository;
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +16,16 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddApplicationService(builder.Configuration);
 builder.Services.AddInfrastructureServices(builder.Configuration);
+
+var mapperConfig = new MapperConfiguration(config =>
+{
+    config.AddProfile(new MapperProfile());
+    // Add additional mappings as needed
+});
+
+IMapper mapper = mapperConfig.CreateMapper();
+MapperHelper.Configure(mapper);
+builder.Services.AddSingleton(mapper);
 var app = builder.Build();
 JobCandidateHubDbMigration.UpdateDatabase(app);
 // Configure the HTTP request pipeline.

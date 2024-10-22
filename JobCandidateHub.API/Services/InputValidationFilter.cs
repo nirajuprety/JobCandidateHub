@@ -1,7 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc.Filters;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
+﻿using JobCandidateHub.Domain.Enum;
 using Microsoft.AspNetCore.Mvc;
-using JobCandidateHub.Domain.Enum;
+using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace JobCandidateHub.API.Services
 {

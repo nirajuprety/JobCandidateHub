@@ -1,15 +1,10 @@
 ﻿using JobCandidateHub.Domain.Entities;
 using JobCandidateHub.Domain.Interface;
 using JobCandidateHub.Domain.Interface.Core;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace JobCandidateHub.Infrastructure.Service
 {
-    public class CandidateService:ICandidateService
+    public class CandidateService : ICandidateService
     {
         private readonly IServiceFactory _factory;
 
@@ -18,7 +13,7 @@ namespace JobCandidateHub.Infrastructure.Service
             _factory = factory;
         }
 
-        public async Task<int> AddCandidateDetail(ECandidate entity) 
+        public async Task<int> AddCandidateDetail(ECandidate entity)
         {
             var candidate = _factory.GetInstance<ECandidate>();
             var result = await candidate.AddAsync(entity);
@@ -29,19 +24,19 @@ namespace JobCandidateHub.Infrastructure.Service
             var candidate = _factory.GetInstance<ECandidate>();
             await candidate.UpdateAsync(entity);
             return true;
-        } 
+        }
         public async Task<bool> CheckCandidateDetailExist(string email)
         {
             var candidateList = await _factory.GetInstance<ECandidate>().ListAsync();
-            bool isExist = candidateList.Any(x=>x.Email == email);
+            bool isExist = candidateList.Any(x => x.Email == email);
             return isExist;
-        } 
-        
+        }
+
         public async Task<ECandidate> GetCandidateByEmail(string email)
         {
             var candidateList = await _factory.GetInstance<ECandidate>().ListAsync();
-            var result= candidateList.FirstOrDefault(x=>x.Email == email);
+            var result = candidateList.FirstOrDefault(x => x.Email == email);
             return result;
-        } 
+        }
     }
 }

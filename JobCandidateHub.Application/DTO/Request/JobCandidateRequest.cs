@@ -1,10 +1,5 @@
 ﻿using JobCandidateHub.Application.Helper;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace JobCandidateHub.Application.DTO.Request
 {
@@ -18,15 +13,16 @@ namespace JobCandidateHub.Application.DTO.Request
         [Required(ErrorMessage = "Enter email address")]
         [EmailAddress(ErrorMessage = "Enter valid email address")]
         public string Email { get; set; }
-        public DateTime FromTime { get; set; }
-        public DateTime ToTime { get; set; }
-        [UrlValidation(ErrorMessage ="Enter a valid LinkedIn profile url")]
+        public TimeOnly FromTime { get; set; }
+        public TimeOnly ToTime { get; set; }
+        [UrlValidation(ErrorMessage = "Enter a valid LinkedIn profile url")]
         public string LinkedInUrl { get; set; }
         [UrlValidation(ErrorMessage = "Enter a valid Github profile url")]
         public string GithubUrl { get; set; }
         [Required(ErrorMessage = "Enter comment")]
+        [StringLength(250, ErrorMessage = "The comment cannot exceed 250 characters.")]
         public string Comment { get; set; }
-       
+
 
     }
 }

@@ -1,11 +1,6 @@
 ﻿using JobCandidateHub.Domain.Interface.Core;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace JobCandidateHub.Infrastructure.Repository
 {
@@ -119,7 +114,7 @@ namespace JobCandidateHub.Infrastructure.Repository
 
     }
     [ExcludeFromCodeCoverage]
-    public class JobCandidateHubServiceFactory:IDisposable, IServiceFactory
+    public class JobCandidateHubServiceFactory : IDisposable, IServiceFactory
     {
         public JobCandidateHubDbContext db;
         public bool _isforTest;
@@ -131,7 +126,7 @@ namespace JobCandidateHub.Infrastructure.Repository
         public JobCandidateHubServiceFactory(JobCandidateHubDbContext db, bool isforTest)
         {
             this.db = db;
-            _isforTest = isforTest;    
+            _isforTest = isforTest;
         }
         public void Dispose()
         {

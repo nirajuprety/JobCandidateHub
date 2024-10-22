@@ -6,21 +6,16 @@ using JobCandidateHub.Domain.Enum;
 using JobCandidateHub.Domain.Interface;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace JobCandidateHub.Application.Manager.Implementation
 {
-    public class CandidateManager: ICandidateManager
+    public class CandidateManager : ICandidateManager
     {
         private readonly ICandidateService _candidateService;
         private readonly ILogger<CandidateManager> _logger;
         public CandidateManager(ICandidateService candidateService, ILogger<CandidateManager> logger)
         {
-            _logger = logger;   
+            _logger = logger;
             _candidateService = candidateService;
         }
 
@@ -40,12 +35,10 @@ namespace JobCandidateHub.Application.Manager.Implementation
 
                 if (isExist)
                 {
-                    // Call the update method if the candidate exists
                     return await UpdateCandidateDetails(parsedData, request.Email);
                 }
                 else
                 {
-                    // Call the add method if the candidate doesn't exist
                     return await AddCandidateDetails(parsedData);
                 }
             }
@@ -145,12 +138,45 @@ namespace JobCandidateHub.Application.Manager.Implementation
 
         private CommonApiResponse VaidateModel(JobCandidateRequest request)
         {
-           if(request == null)
+            if (request == null)
             {
                 return new CommonApiResponse()
                 {
                     Data = false,
                     Message = "Model is empty",
+                    Status = StatusType.ProcessError,
+                };
+            }
+
+            if (!string.IsNullOrEmpty(request.PhoneNumber) && request.PhoneNumber.Length != 10)
+            {
+                return new CommonApiResponse()
+                {
+                    Data = false,
+                    Message = "Phone number must be 10 digits",
+                    Status = StatusType.ProcessError,
+                };
+            }
+            if ((request.FromTime != default &&
+                request.ToTime == default) ||
+                (request.FromTime == default &&
+                request.ToTime != default))
+            {
+                return new CommonApiResponse()
+                {
+                    Data = false,
+                    Message = "Both FromTime and ToTime are required when one is provided",
+                    Status = StatusType.ProcessError,
+                };
+            }
+            if (request.FromTime != default &&
+                request.ToTime != default &&
+                request.ToTime <= request.FromTime)
+            {
+                return new CommonApiResponse()
+                {
+                    Data = false,
+                    Message = "ToTime must be greater than FromTime",
                     Status = StatusType.ProcessError,
                 };
             }

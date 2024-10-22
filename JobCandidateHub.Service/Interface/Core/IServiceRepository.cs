@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace JobCandidateHub.Domain.Interface.Core
+﻿namespace JobCandidateHub.Domain.Interface.Core
 {
     public interface IServiceRepository<t>
     {
