@@ -188,8 +188,8 @@ namespace JobCandidateHub.UnitTest.Application
             //arrange
             JobCandidateDataInfo.Init();
             var request = JobCandidateDataInfo.JobCandidateRequest;
-            request.FromTime = new TimeOnly(9, 0);
-            request.ToTime= new TimeOnly(0, 0);
+            request.FromTime = "09:00";
+            request.ToTime= "string";
 
             var expected_result = new CommonApiResponse()
             {
@@ -208,8 +208,8 @@ namespace JobCandidateHub.UnitTest.Application
             //arrange
             JobCandidateDataInfo.Init();
             var request = JobCandidateDataInfo.JobCandidateRequest;
-            request.FromTime = new TimeOnly(0, 0);
-            request.ToTime= new TimeOnly(9, 0);
+            request.FromTime = "string";
+            request.ToTime= "09:00";
 
             var expected_result = new CommonApiResponse()
             {
@@ -228,8 +228,8 @@ namespace JobCandidateHub.UnitTest.Application
             //arrange
             JobCandidateDataInfo.Init();
             var request = JobCandidateDataInfo.JobCandidateRequest;
-            request.FromTime = new TimeOnly(2, 0);
-            request.ToTime= new TimeOnly(1, 0);
+            request.FromTime = "02:00";
+            request.ToTime= "01:00";
 
             var expected_result = new CommonApiResponse()
             {

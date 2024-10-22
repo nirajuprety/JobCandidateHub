@@ -13,8 +13,8 @@ namespace JobCandidateHub.Application.DTO.Request
         [Required(ErrorMessage = "Enter email address")]
         [EmailAddress(ErrorMessage = "Enter valid email address")]
         public string Email { get; set; }
-        public TimeOnly FromTime { get; set; }
-        public TimeOnly ToTime { get; set; }
+        public string FromTime { get; set; }
+        public string ToTime { get; set; }
         [UrlValidation(ErrorMessage = "Enter a valid LinkedIn profile url")]
         public string LinkedInUrl { get; set; }
         [UrlValidation(ErrorMessage = "Enter a valid Github profile url")]

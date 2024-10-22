@@ -1,5 +1,6 @@
 ﻿using JobCandidateHub.Application.DTO.Request;
 using JobCandidateHub.Application.DTO.Response.Common;
+using JobCandidateHub.Application.Helper;
 using JobCandidateHub.Application.Manager.Interface;
 using JobCandidateHub.Domain.Entities;
 using JobCandidateHub.Domain.Enum;
@@ -121,14 +122,15 @@ namespace JobCandidateHub.Application.Manager.Implementation
 
         private ECandidate ParseJobCandidateDetails(JobCandidateRequest request)
         {
+          
             var result = new ECandidate()
             {
                 Comment = request.Comment,
                 Email = request.Email,
                 FirstName = request.FirstName,
                 LastName = request.LastName,
-                FromTime = request.FromTime,
-                ToTime = request.ToTime,
+                FromTime = CommonHelper.ConvertStringToTimeOnly(request.FromTime),
+                ToTime = CommonHelper.ConvertStringToTimeOnly(request.FromTime),
                 GithubUrl = request.GithubUrl,
                 LinkedInUrl = request.LinkedInUrl,
                 PhoneNumber = request.PhoneNumber,
@@ -157,10 +159,10 @@ namespace JobCandidateHub.Application.Manager.Implementation
                     Status = StatusType.ProcessError,
                 };
             }
-            if ((request.FromTime != default &&
-                request.ToTime == default) ||
-                (request.FromTime == default &&
-                request.ToTime != default))
+            if ((request.FromTime != "string" &&
+                request.ToTime == "string") ||
+                (request.FromTime == "string"&&
+                request.ToTime != "string"))
             {
                 return new CommonApiResponse()
                 {
@@ -171,7 +173,7 @@ namespace JobCandidateHub.Application.Manager.Implementation
             }
             if (request.FromTime != default &&
                 request.ToTime != default &&
-                request.ToTime <= request.FromTime)
+                CommonHelper.ConvertStringToTimeOnly(request.ToTime) <= CommonHelper.ConvertStringToTimeOnly(request.FromTime))
             {
                 return new CommonApiResponse()
                 {
