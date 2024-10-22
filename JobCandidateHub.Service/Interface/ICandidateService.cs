@@ -1,4 +1,5 @@
-﻿using System;
+﻿using JobCandidateHub.Domain.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +9,9 @@ namespace JobCandidateHub.Domain.Interface
 {
     public interface ICandidateService
     {
-        public Task<int> AddCandidateDetail { get; set; }
-        public Task<bool> UpdateCandidateDetail { get; set; }
+        public Task<int> AddCandidateDetail(ECandidate entity);
+        public Task<bool> UpdateCandidateDetail(ECandidate entity);
+        public Task<bool> CheckCandidateDetailExist(string email);
+        Task<ECandidate> GetCandidateByEmail(string email);
     }
 }
