@@ -1,14 +1,20 @@
+using JobCandidateHub.API.Services;
+using JobCandidateHub.Infrastructure;
+using JobCandidateHub.Application;
+using JobCandidateHub.Infrastructure.Repository;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllers();
+builder.Services.AddScoped<InputValidationFilter>();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
+builder.Services.AddApplicationService(builder.Configuration);
+builder.Services.AddInfrastructureServices(builder.Configuration);
 var app = builder.Build();
-
+JobCandidateHubDbMigration.UpdateDatabase(app);
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {

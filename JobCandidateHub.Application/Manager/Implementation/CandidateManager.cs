@@ -31,75 +31,100 @@ namespace JobCandidateHub.Application.Manager.Implementation
                 var isValidModel = VaidateModel(request);
                 if (!isValidModel.Data)
                 {
-                    _logger.LogInformation("Model is empty" + JsonConvert.SerializeObject(request));
+                    _logger.LogWarning("Invalid model: " + JsonConvert.SerializeObject(request));
                     return isValidModel;
                 }
 
-                ECandidate parsedData = ParseJobCandidateDetails(request);
-                bool isExist = await _candidateService.CheckCandidateDetailExist(request.Email);
+                var parsedData = ParseJobCandidateDetails(request);
+                var isExist = await _candidateService.CheckCandidateDetailExist(request.Email);
+
                 if (isExist)
                 {
-                    //update
-                    parsedData.UpdatedDate = DateTime.Now;
-                    var updateResponse = await _candidateService.UpdateCandidateDetail(parsedData);
-                    if (!updateResponse)
-                    {
-                        _logger.LogInformation("Failed to update job candidate" + JsonConvert.SerializeObject(parsedData));
-                        return new CommonApiResponse()
-                        {
-                            Data = false,
-                            Message = "Failed to update job candidate",
-                            Status = StatusType.ProcessError,
-                        };
-                    }
-                    _logger.LogInformation("Successfully updated job candidate details" + JsonConvert.SerializeObject(parsedData));
-                    return new CommonApiResponse()
-                    {
-                        Data = true,
-                        Message = "Successfully updated job candidate",
-                        Status = StatusType.Ok,
-                    };
-
-
+                    // Call the update method if the candidate exists
+                    return await UpdateCandidateDetails(parsedData, request.Email);
                 }
                 else
                 {
-                    //add
-                    parsedData.CreatedDate = DateTime.Now;
-                    var addResponse = await _candidateService.AddCandidateDetail(parsedData);
-                    if (addResponse <= 0)
-                    {
-                        _logger.LogInformation("Failed to add job candidate" + JsonConvert.SerializeObject(parsedData));
-                        return new CommonApiResponse()
-                        {
-                            Data = false,
-                            Message = "Failed to add job candidate",
-                            Status = StatusType.ProcessError,
-                        };
-                    }
-                    _logger.LogInformation("Successfully added job candidate details" + JsonConvert.SerializeObject(parsedData));
-                    return new CommonApiResponse()
-                    {
-                        Data = true,
-                        Message = "Successfully added job candidate",
-                        Status = StatusType.Ok,
-                    };
-
+                    // Call the add method if the candidate doesn't exist
+                    return await AddCandidateDetails(parsedData);
                 }
             }
             catch (Exception ex)
             {
-                _logger.LogInformation("Exception occured:" +ex.Message);
-                return new CommonApiResponse()
+                _logger.LogError("Exception occurred while adding/updating candidate: " + ex);
+                return new CommonApiResponse
                 {
                     Data = false,
                     Message = "Something went wrong",
-                    Status = StatusType.UnHandledException,
+                    Status = StatusType.UnHandledException
                 };
-
             }
-           
         }
+
+        private async Task<CommonApiResponse> UpdateCandidateDetails(ECandidate parsedData, string email)
+        {
+            var existingCandidate = await _candidateService.GetCandidateByEmail(email);
+            if (existingCandidate != null)
+            {
+                parsedData.Id = existingCandidate.Id;
+                parsedData.UpdatedDate = DateTime.Now;
+
+                var updateResponse = await _candidateService.UpdateCandidateDetail(parsedData);
+                if (!updateResponse)
+                {
+                    _logger.LogInformation("Failed to update job candidate: " + JsonConvert.SerializeObject(parsedData));
+                    return new CommonApiResponse
+                    {
+                        Data = false,
+                        Message = "Failed to update job candidate",
+                        Status = StatusType.ProcessError
+                    };
+                }
+
+                _logger.LogInformation("Successfully updated job candidate: " + JsonConvert.SerializeObject(parsedData));
+                return new CommonApiResponse
+                {
+                    Data = true,
+                    Message = "Successfully updated job candidate",
+                    Status = StatusType.Ok
+                };
+            }
+
+            _logger.LogWarning("Candidate not found for email: " + email);
+            return new CommonApiResponse
+            {
+                Data = false,
+                Message = "Candidate not found for the provided email",
+                Status = StatusType.ProcessError
+            };
+        }
+
+        private async Task<CommonApiResponse> AddCandidateDetails(ECandidate parsedData)
+        {
+            parsedData.CreatedDate = DateTime.Now;
+
+            var addResponse = await _candidateService.AddCandidateDetail(parsedData);
+            if (addResponse <= 0)
+            {
+                _logger.LogError("Failed to add job candidate: " + JsonConvert.SerializeObject(parsedData));
+                return new CommonApiResponse
+                {
+                    Data = false,
+                    Message = "Failed to add job candidate",
+                    Status = StatusType.ProcessError
+                };
+            }
+
+            _logger.LogInformation("Successfully added job candidate: " + JsonConvert.SerializeObject(parsedData));
+            return new CommonApiResponse
+            {
+                Data = true,
+                Message = "Successfully added job candidate",
+                Status = StatusType.Ok
+            };
+        }
+
+
 
         private ECandidate ParseJobCandidateDetails(JobCandidateRequest request)
         {
