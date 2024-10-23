@@ -140,21 +140,23 @@ Now, you can run the application using Visual Studio by pressing `F5` or selecti
 
 Unit tests are available to validate the main logic in the `CandidateManager`. Run the tests using Visual Studio Test Explorer
 
+## **Improvements done**
+1. Phone number is validated for 10 character length
+2. FromTime should not be greater than to time,
+3. Either both from time and to time is required Or both are not required
 
-## **Caching (Optional)**
+## **List of Assumptions**
+1. Time interval is splitted into FromTime and ToTime that takes string as argument
+   Valid Time format in request body => "01:10", "12:23"
+   Invalid Time format in request body => "","text", "0112", "01/02"
+2. Phone number must be 10 length long
 
-Although caching is not implemented in this version, potential caching strategies could involve:
-
-
-
-* Caching recently added or updated candidates to reduce database lookups.
-* Implementing caching for candidate profiles that are frequently accessed.
-
-
-## **Future Considerations**
+   
 
 
-
-* Migration to NoSQL databases or other storage options.
-* Implementing bulk uploads or imports.
-* Additional endpoints for retrieving or deleting candidate data.
+## **List of ways for improvement**
+1. Caching is not implemented in this version
+2. Although logger is implemented it need to be integrated with platform like Grafana for better observability
+3. Rate limiting is not implemented
+4. Authorization is not implemented
+5. More validation can be done for attribute like phone number for uniqueness, length, numeric
