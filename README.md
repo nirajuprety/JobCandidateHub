@@ -139,11 +139,18 @@ Now, you can run the application using Visual Studio by pressing `F5` or selecti
 ## **Unit Tests**
 
 Unit tests are available to validate the main logic in the `CandidateManager`. Run the tests using Visual Studio Test Explorer
-
-## **Improvements done**
+## **System technical description**
+1. Clean architecture is implemented to ensure scalability.
+2. Design patterns like Factory are used for core CRUD operations.
+3. xUnit, along with Moq, is used for testing.
+4. AutoMapper is utilized for object mapping.
+5. A logger is implemented for tracking and recording application events.
+ 
+## **Validation done**
 1. Phone number is validated for 10 character length
 2. FromTime should not be greater than to time,
 3. Either both from time and to time is required Or both are not required
+
 
 ## **List of Assumptions**
 1. Time interval is splitted into FromTime and ToTime that takes string as argument
